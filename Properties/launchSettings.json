@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "KinematicsCalculator.NET (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "KinematicsCalculator.NET (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
