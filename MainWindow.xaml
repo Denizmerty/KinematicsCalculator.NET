@@ -9,27 +9,64 @@
     xmlns:media="using:Microsoft.UI.Xaml.Media"
     mc:Ignorable="d"
     MinWidth="500"
-    MinHeight="650">
+    MinHeight="680">
+
     <winex:WindowEx.SystemBackdrop>
         <media:MicaBackdrop/>
     </winex:WindowEx.SystemBackdrop>
-    <Grid Padding="20" RowSpacing="15">
+
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="ResultTextStyle" TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FontSize"   Value="16"/>
+            </Style>
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto" HorizontalScrollMode="Disabled" HorizontalScrollBarVisibility="Disabled">
+
+        <MenuBar Grid.Row="0">
+            <MenuBarItem Title="File">
+                <MenuFlyoutItem Text="Exit" Click="ExitMenuItem_Click">
+                    <MenuFlyoutItem.Icon>
+                        <SymbolIcon Symbol="Cancel"/>
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuBarItem>
+            <MenuBarItem Title="Help">
+                <MenuFlyoutItem Text="About" Click="AboutMenuItem_Click">
+                    <MenuFlyoutItem.Icon>
+                        <SymbolIcon Symbol="Help"/>
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuBarItem>
+        </MenuBar>
+
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto"
+                      VerticalScrollMode="Auto"
+                      HorizontalScrollMode="Disabled"
+                      HorizontalScrollBarVisibility="Disabled"
+                      Padding="20,0,20,0">
             <Border Background="{ThemeResource LayerFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="{ThemeResource ControlCornerRadius}"
-                    Padding="15">
+                    Padding="15"
+                    Margin="0,15,0,0">
                 <StackPanel Spacing="12">
                     <TextBlock Text="Inputs" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="0,0,0,5"/>
-                    <TextBlock Text="Enter 3 known values." Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" Margin="0,0,0,10"/>
+                    <TextBlock Text="Enter 3 known values."
+                               Style="{ThemeResource BodyTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               Margin="0,0,0,10"/>
                     <Grid ColumnSpacing="10" RowSpacing="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -42,60 +79,120 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <TextBox x:Name="InputDisplacementTextBox" Header="Displacement (Δx)" Grid.Row="0" Grid.Column="0" PlaceholderText="Enter value"/>
-                        <ComboBox x:Name="UnitDisplacementComboBox" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                        <TextBox x:Name="InputInitialVelocityTextBox" Header="Initial Velocity (v₀)" Grid.Row="1" Grid.Column="0" PlaceholderText="Enter value"/>
-                        <ComboBox x:Name="UnitInitialVelocityComboBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                        <TextBox x:Name="InputFinalVelocityTextBox" Header="Final Velocity (v)" Grid.Row="2" Grid.Column="0" PlaceholderText="Enter value"/>
-                        <ComboBox x:Name="UnitFinalVelocityComboBox" Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                        <TextBox x:Name="InputAccelerationTextBox" Header="Acceleration (a)" Grid.Row="3" Grid.Column="0" PlaceholderText="Enter value"/>
-                        <ComboBox x:Name="UnitAccelerationComboBox" Grid.Row="3" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
-                        <TextBox x:Name="InputTimeTextBox" Header="Time (t)" Grid.Row="4" Grid.Column="0" PlaceholderText="Enter value"/>
-                        <ComboBox x:Name="UnitTimeComboBox" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,2"/>
+
+                        <TextBox x:Name="InputDisplacementTextBox"
+                                 Header="Displacement (Δx)"
+                                 Grid.Row="0" Grid.Column="0"
+                                 PlaceholderText="Enter value"/>
+                        <ComboBox x:Name="UnitDisplacementComboBox"
+                                  Grid.Row="0" Grid.Column="1"
+                                  VerticalAlignment="Bottom"
+                                  Margin="0,0,0,2"/>
+
+                        <TextBox x:Name="InputInitialVelocityTextBox"
+                                 Header="Initial Velocity (v₀)"
+                                 Grid.Row="1" Grid.Column="0"
+                                 PlaceholderText="Enter value"/>
+                        <ComboBox x:Name="UnitInitialVelocityComboBox"
+                                  Grid.Row="1" Grid.Column="1"
+                                  VerticalAlignment="Bottom"
+                                  Margin="0,0,0,2"/>
+
+                        <TextBox x:Name="InputFinalVelocityTextBox"
+                                 Header="Final Velocity (v)"
+                                 Grid.Row="2" Grid.Column="0"
+                                 PlaceholderText="Enter value"/>
+                        <ComboBox x:Name="UnitFinalVelocityComboBox"
+                                  Grid.Row="2" Grid.Column="1"
+                                  VerticalAlignment="Bottom"
+                                  Margin="0,0,0,2"/>
+
+                        <TextBox x:Name="InputAccelerationTextBox"
+                                 Header="Acceleration (a)"
+                                 Grid.Row="3" Grid.Column="0"
+                                 PlaceholderText="Enter value"/>
+                        <ComboBox x:Name="UnitAccelerationComboBox"
+                                  Grid.Row="3" Grid.Column="1"
+                                  VerticalAlignment="Bottom"
+                                  Margin="0,0,0,2"/>
+
+                        <TextBox x:Name="InputTimeTextBox"
+                                 Header="Time (t)"
+                                 Grid.Row="4" Grid.Column="0"
+                                 PlaceholderText="Enter value"/>
+                        <ComboBox x:Name="UnitTimeComboBox"
+                                  Grid.Row="4" Grid.Column="1"
+                                  VerticalAlignment="Bottom"
+                                  Margin="0,0,0,2"/>
                     </Grid>
                 </StackPanel>
             </Border>
         </ScrollViewer>
+
         <ComboBox x:Name="CalculateChoiceComboBox"
-                  Grid.Row="1"
+                  Grid.Row="2"
                   Header="Calculate:"
                   HorizontalAlignment="Stretch"
                   MinWidth="250"
-                  SelectionChanged="CalculateChoiceComboBox_SelectionChanged"/>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right">
+                  SelectionChanged="CalculateChoiceComboBox_SelectionChanged"
+                  Margin="20,15,20,0"/>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    Spacing="10"
+                    HorizontalAlignment="Right"
+                    Margin="20,15,20,0">
             <Button x:Name="ClearButton" Click="ClearButton_Click">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal" Spacing="6">
-                        <SymbolIcon Symbol="Clear"/>
-                        <TextBlock Text="Clear"/>
-                    </StackPanel>
-                </Button.Content>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <SymbolIcon Symbol="Clear"/>
+                    <TextBlock Text="Clear"/>
+                </StackPanel>
             </Button>
-            <Button x:Name="CalculateButton" Style="{ThemeResource AccentButtonStyle}" Click="CalculateButton_Click">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal" Spacing="6">
-                        <SymbolIcon Symbol="Calculator"/>
-                        <TextBlock Text="Calculate"/>
-                    </StackPanel>
-                </Button.Content>
+            <Button x:Name="CalculateButton"
+                    Style="{ThemeResource AccentButtonStyle}"
+                    Click="CalculateButton_Click">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <SymbolIcon Symbol="Calculator"/>
+                    <TextBlock Text="Calculate"/>
+                </StackPanel>
             </Button>
         </StackPanel>
-        <Border x:Name="ResultBorder" Grid.Row="3"
+
+        <Border x:Name="ResultBorder"
+                Grid.Row="4"
                 Background="{ThemeResource LayerFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="{ThemeResource ControlCornerRadius}"
                 Padding="15"
-                Visibility="Collapsed">
+                Visibility="Collapsed"
+                Margin="20,15,20,0">
             <StackPanel Spacing="5">
-                <TextBlock Text="Result" Style="{ThemeResource SubtitleTextBlockStyle}" Margin="0,0,0,10"/>
-                <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                    <TextBlock x:Name="ResultVariableTextBlock" Style="{ThemeResource BodyStrongTextBlockStyle}" FontSize="16" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="ResultValueTextBlock" Style="{ThemeResource SubtitleTextBlockStyle}" FontSize="24" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                    <TextBlock x:Name="ResultUnitTextBlock" Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" FontSize="16" VerticalAlignment="Center"/>
+                <TextBlock Text="Result"
+                           Style="{ThemeResource SubtitleTextBlockStyle}"
+                           Margin="0,0,0,10"/>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8"
+                            VerticalAlignment="Center">
+                    <TextBlock x:Name="ResultVariableTextBlock"
+                               Style="{StaticResource ResultTextStyle}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock x:Name="ResultValueTextBlock"
+                               Style="{StaticResource ResultTextStyle}"
+                               VerticalAlignment="Center"/>
+                    <TextBlock x:Name="ResultUnitTextBlock"
+                               Style="{StaticResource ResultTextStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               VerticalAlignment="Center"/>
                 </StackPanel>
             </StackPanel>
         </Border>
-        <InfoBar x:Name="StatusInfoBar" Grid.Row="4" IsOpen="False" IsClosable="True" MinWidth="300" />
+
+        <InfoBar x:Name="StatusInfoBar"
+                 Grid.Row="5"
+                 IsOpen="False"
+                 IsClosable="True"
+                 MinWidth="300"
+                 Margin="20,15,20,20"/>
     </Grid>
 </winex:WindowEx>

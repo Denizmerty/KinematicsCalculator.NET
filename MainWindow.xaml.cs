@@ -849,5 +849,18 @@ namespace KinematicsCalculator.NET
                 ShowStatus($"An unexpected issue occurred ({ex.GetType().Name}). Check inputs.", InfoBarSeverity.Error, "Calculation Error");
             }
         }
+
+        private async void AboutMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new AboutDialog();
+            // IMPORTANT: Set XamlRoot before showing a ContentDialog in WinUI 3 Desktop
+            dialog.XamlRoot = this.Content.XamlRoot;
+            await dialog.ShowAsync();
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close(); 
+        }
     }
 }
